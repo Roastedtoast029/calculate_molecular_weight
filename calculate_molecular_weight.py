@@ -1,9 +1,6 @@
-from decimal import Decimal
-import openpyxl
 import tkinter as tk
 import tkinter.font as f
-from calculater import func as calculater
-import re
+from calculater import calculater
 
 class calculate_molecular_weight(tk.Frame):
     def __init__(self, master):
@@ -12,12 +9,13 @@ class calculate_molecular_weight(tk.Frame):
         self.master.title("分子量計算ツール")
         self.master.geometry("600x300")
 
+        # フォント用意
         self.font_large = f.Font(size=18)
         self.font_middle = f.Font(size=14)
         self.font_small = f.Font(size=12)
         self.font_middle_bold = f.Font(size=16, weight="bold")
 
-        # フレームとボタンの作成
+        # フレームの作成
         self.create_text_frame()
         self.create_molecular_formula_frame()
         self.create_calculation_result_frame()
@@ -25,6 +23,9 @@ class calculate_molecular_weight(tk.Frame):
         self.text_frame.pack(pady=5)
         self.molecular_formula_frame.pack()
         self.calculation_result_frame.pack(pady=10)
+
+        # 計算機"calculater"を外部ファイルからインポート
+        self.calculater = calculater()
     
     def create_text_frame(self):
         self.text_frame = tk.Frame(self.master)
@@ -98,9 +99,13 @@ class calculate_molecular_weight(tk.Frame):
         formula = self.molecular_formula_textbox.get()
         self.result_textbox.configure(state="normal")
         self.result_textbox.delete("1.0", "end")
-        self.result_textbox.insert("1.0", calculater(formula), "center")
-        self.result_textbox.configure(state="disabled")
-
+        check, res = self.calculater.calculate(formula)
+        if check:
+            self.result_textbox.insert("1.0", res, "center")
+            self.result_textbox.configure(state="disabled")
+        else:
+            self.result_textbox.insert("1.0", res+"は不正な入力です", "center")
+            self.result_textbox.configure(state="disabled")
 
 
 root = tk.Tk()
