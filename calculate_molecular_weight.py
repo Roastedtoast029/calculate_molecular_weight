@@ -2,6 +2,7 @@ from decimal import Decimal
 import openpyxl
 import tkinter as tk
 import tkinter.font as f
+from calculater import func as calculater
 import re
 
 class calculate_molecular_weight(tk.Frame):
@@ -66,8 +67,9 @@ class calculate_molecular_weight(tk.Frame):
             side = tk.LEFT
             )
         self.molecular_formula_textbox.insert(tk.END, "C3H8O")
+
         # Enter入力でcalculater起動
-        self.molecular_formula_textbox.bind("<Return>", self.calculater)
+        self.molecular_formula_textbox.bind("<Return>", self.show_result)
     
 
     def create_calculation_result_frame(self):
@@ -92,11 +94,11 @@ class calculate_molecular_weight(tk.Frame):
     # 計算機部分
     # ランレングス圧縮された分子式から分子量を計算
     # ex) C3H8O => 60.095
-    def calculater(self, event):
+    def show_result(self, event):
         formula = self.molecular_formula_textbox.get()
         self.result_textbox.configure(state="normal")
         self.result_textbox.delete("1.0", "end")
-        self.result_textbox.insert("1.0", formula, "center")
+        self.result_textbox.insert("1.0", calculater(formula), "center")
         self.result_textbox.configure(state="disabled")
 
 
