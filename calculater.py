@@ -74,8 +74,13 @@ class calculater():
                     molecular_weight += Decimal(atomic_weight) * int(coef)
             
             now_ind = num_ind
+        
+        # 数値がでかすぎるとエラーを吐くのでここでも例外処理
+        try:
+            return True, str(molecular_weight.quantize(Decimal("1E-4"), rounding=ROUND_HALF_UP))
+        except ArithmeticError as e:
+            return True, "オーバーフロー"
 
-        return True, str(molecular_weight.quantize(Decimal("1E-4"), rounding=ROUND_HALF_UP))
 
 # デバッグ用
 if __name__ == "__main__":

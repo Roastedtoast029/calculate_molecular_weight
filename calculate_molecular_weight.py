@@ -36,17 +36,17 @@ class calculate_molecular_weight(tk.Frame):
                  ).pack(pady=10)
         
         tk.Label(self.text_frame,
-                 text = "注意書き１",
+                 text = "",
                  font = self.font_small
                  ).pack()
 
         tk.Label(self.text_frame,
-                 text = "注意書き２",
+                 text = "※表示される数値は「Monoisotopic mass」です。",
                  font = self.font_small
                  ).pack()
 
         tk.Label(self.text_frame,
-                 text = "注意書き３",
+                 text = "",
                  font = self.font_small
                  ).pack()
     
@@ -78,7 +78,7 @@ class calculate_molecular_weight(tk.Frame):
 
         # ラベル
         tk.Label(self.calculation_result_frame,
-                 text = "分子量計算結果",
+                 text = "計算結果",
                  font = self.font_large
                  ).pack()
         
